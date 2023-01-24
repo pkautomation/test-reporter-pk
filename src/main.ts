@@ -199,6 +199,7 @@ class TestReporter {
     core.info(`Check run URL: ${resp.data.url}`)
     core.info(`Check run HTML: ${resp.data.html_url}`)
     process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl';
+    process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl';
 
     return results
   }
