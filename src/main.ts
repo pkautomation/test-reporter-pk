@@ -198,7 +198,7 @@ class TestReporter {
     })
     core.info('this is my custom message')
 
-    exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url}`, (error:any, stdout: any, stderr: any) => {
+    exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url}`, (error: any, stdout: any, stderr: any) => {
       if (error) {
         core.info(`error: ${error.message}`)
         return
