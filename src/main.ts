@@ -210,8 +210,9 @@ class TestReporter {
           core.info(`stderr: ${stderr}`);
           return;
       }
-      console.log(`stdout: ${stdout}`)
+      core.info(`stdout: ${stdout}`)
     });
+    core.info(`variable should be set to ${resp.data.html_url}`);
     process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl';
     process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl';
 
