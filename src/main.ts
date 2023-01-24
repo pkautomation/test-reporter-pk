@@ -201,7 +201,17 @@ class TestReporter {
 
     const { exec } = require("child_process");
 
-    exec(`export HTML_REPORT_URL=${resp.data.html_url}`, () => {});
+    exec(`export HTML_REPORT_URL=${resp.data.html_url}`, (error:any, stdout:any, stderr:any) => {
+      if (error) {
+          core.info(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          core.info(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`)
+    });
     process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl';
     process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl';
 
