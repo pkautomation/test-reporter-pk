@@ -268,6 +268,7 @@ const mocha_json_parser_1 = __nccwpck_require__(6043);
 const path_utils_1 = __nccwpck_require__(4070);
 const github_utils_1 = __nccwpck_require__(3522);
 const markdown_utils_1 = __nccwpck_require__(6482);
+const exec = __importStar(__nccwpck_require__(2081));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -408,6 +409,21 @@ class TestReporter {
                     summary,
                     annotations
                 } }, github.context.repo));
+            core.info('this is my custom message');
+            exec.exec(`export HTML_REPORT_URL=${resp.data.html_url}`, (error, stdout, stderr) => {
+                if (error) {
+                    core.info(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    core.info(`stderr: ${stderr}`);
+                    return;
+                }
+                core.info(`stdout: ${stdout}`);
+            });
+            core.info(`variable should be set to ${resp.data.html_url}`);
+            process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl';
+            process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl';
             core.info(`Check run create response: ${resp.status}`);
             core.info(`Check run URL: ${resp.data.url}`);
             core.info(`Check run HTML: ${resp.data.html_url}`);

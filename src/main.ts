@@ -19,6 +19,7 @@ import {MochaJsonParser} from './parsers/mocha-json/mocha-json-parser'
 import {normalizeDirPath, normalizeFilePath} from './utils/path-utils'
 import {getCheckRunContext} from './utils/github-utils'
 import {Icon} from './utils/markdown-utils'
+import * as exec from 'child_process'
 
 async function main(): Promise<void> {
   try {
@@ -195,30 +196,26 @@ class TestReporter {
       },
       ...github.context.repo
     })
-    core.info('this is my custom message');
-    
-    const { exec } = require("child_process");
+    core.info('this is my custom message')
 
-    exec(`export HTML_REPORT_URL=${resp.data.html_url}`, (error:any, stdout:any, stderr:any) => {
+    exec.exec(`export HTML_REPORT_URL=${resp.data.html_url}`, (error: any, stdout: any, stderr: any) => {
       if (error) {
-          core.info(`error: ${error.message}`);
-          return;
+        core.info(`error: ${error.message}`)
+        return
       }
       if (stderr) {
-          core.info(`stderr: ${stderr}`);
-          return;
+        core.info(`stderr: ${stderr}`)
+        return
       }
       core.info(`stdout: ${stdout}`)
-    });
+    })
 
-    core.info(`variable should be set to ${resp.data.html_url}`);
-    process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl';
-    process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl';
+    core.info(`variable should be set to ${resp.data.html_url}`)
+    process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl'
+    process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl'
     core.info(`Check run create response: ${resp.status}`)
     core.info(`Check run URL: ${resp.data.url}`)
     core.info(`Check run HTML: ${resp.data.html_url}`)
-
-   
 
     return results
   }
