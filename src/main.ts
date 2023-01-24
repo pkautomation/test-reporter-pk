@@ -198,17 +198,20 @@ class TestReporter {
     })
     core.info('this is my custom message')
 
-    exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url}"`, (error: any, stdout: any, stderr: any) => {
-      if (error) {
-        core.info(`error: ${error.message}`)
-        return
+    exec.exec(
+      `echo "HTML_REPORT_URL=${resp.data.html_url} >> $GITHUB_OUTPUT"`,
+      (error: any, stdout: any, stderr: any) => {
+        if (error) {
+          core.info(`error: ${error.message}`)
+          return
+        }
+        if (stderr) {
+          core.info(`stderr: ${stderr}`)
+          return
+        }
+        core.info(`stdout: ${stdout}`)
       }
-      if (stderr) {
-        core.info(`stderr: ${stderr}`)
-        return
-      }
-      core.info(`stdout: ${stdout}`)
-    })
+    )
 
     core.info(`variable should be set to ${resp.data.html_url}`)
     process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl'
