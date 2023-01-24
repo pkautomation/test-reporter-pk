@@ -410,7 +410,7 @@ class TestReporter {
                     annotations
                 } }, github.context.repo));
             core.info('this is my custom message');
-            exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url} >> $GITHUB_OUTPUT"`, (error, stdout, stderr) => {
+            exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url}" >> $GITHUB_ENV`, (error, stdout, stderr) => {
                 if (error) {
                     core.info(`error: ${error.message}`);
                     return;
