@@ -196,7 +196,6 @@ class TestReporter {
       },
       ...github.context.repo
     })
-    core.info('this is my custom message')
 
     exec.exec(`echo "HTML_REPORT_URL=${resp.data.html_url}" >> $GITHUB_ENV`, (error: any, stdout: any, stderr: any) => {
       if (error) {
@@ -210,9 +209,6 @@ class TestReporter {
       core.info(`stdout: ${stdout}`)
     })
 
-    core.info(`variable should be set to ${resp.data.html_url}`)
-    process.env.HTML_REPORT_URL = resp.data.html_url ? resp.data.html_url : 'lol.pl'
-    process.env['HTML_REPORT_URL'] = resp.data.html_url ? resp.data.html_url : 'lol.pl'
     core.info(`Check run create response: ${resp.status}`)
     core.info(`Check run URL: ${resp.data.url}`)
     core.info(`Check run HTML: ${resp.data.html_url}`)
